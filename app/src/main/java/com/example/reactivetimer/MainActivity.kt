@@ -22,6 +22,11 @@ class MainActivity : AppCompatActivity() {
         numberPickerMinutes.maxValue = 60
         numberPickerMinutes.setOnValueChangedListener(object : NumberPicker.OnValueChangeListener{
             override fun onValueChange(picker: NumberPicker?, oldVal: Int, newVal: Int) {
+                if(picker!!.value<10){
+                    tvSec.text = "0${picker.value}"
+                } else {
+                    tvSec.text = picker.value.toString()
+                }
                tvMin.text = String.format(newVal.toString())
                 Log.d("MyLOG",picker.toString())
                 minutes = picker!!.value
@@ -31,9 +36,15 @@ class MainActivity : AppCompatActivity() {
         numberPickerSeconds.maxValue = 60
         numberPickerSeconds.setOnValueChangedListener(object : NumberPicker.OnValueChangeListener{
             override fun onValueChange(picker: NumberPicker?, oldVal: Int, newVal: Int) {
-                tvSec.text = String.format(newVal.toString())
+                if(picker!!.value < 10){
+//                    tvSec.text = "0"+picker.value
+                    tvSec.text = "0${picker.value}"
+                } else {
+                    tvSec.text = picker.value.toString()
+                }
+
                 Log.d("MyLOG",picker.toString())
-                seconds = picker!!.value
+                seconds = picker.value
             }
         })
 
