@@ -48,8 +48,14 @@ class MainActivity : AppCompatActivity() {
                     tvSec.text = (it % 60).toString()
                     val sec = it / 60
                     tvMin.text = sec.toString()
+                    if(tvSec.text.equals("0")){
+                        btStart.isEnabled = true
+                    }
 
-                }
+
+
+
+                }.isDisposed
         }
     }
 
@@ -59,8 +65,12 @@ class MainActivity : AppCompatActivity() {
             for (i in count downTo 0) {
                 SystemClock.sleep(1000)
                 subcrumber.onNext(i)
+
             }
+            subcrumber.onComplete()
+
         }
+
 
     }
 
