@@ -6,31 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/etMinutes"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Минуты"
-        android:maxLength="2"
-        android:inputType="number"
-        android:layout_margin="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <EditText
-        android:id="@+id/etSeconds"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Секунды"
-        android:maxLength="2"
-        android:layout_marginTop="10dp"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/etMinutes"
-        app:layout_constraintStart_toStartOf="@+id/etMinutes"
-        app:layout_constraintTop_toBottomOf="@+id/etMinutes" />
-
     <TextView
         android:id="@+id/tvMin"
         android:layout_width="wrap_content"
@@ -51,10 +26,8 @@
         android:layout_marginStart="52dp"
         android:text=":"
         android:textSize="140dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvMin"
         app:layout_constraintStart_toEndOf="@+id/tvMin"
-        app:layout_constraintTop_toTopOf="@+id/tvMin"
-        app:layout_constraintVertical_bias="0.377" />
+        app:layout_constraintTop_toTopOf="@+id/tvMin" />
 
     <TextView
         android:id="@+id/tvSec"
@@ -71,19 +44,30 @@
         android:id="@+id/btStart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+
         android:text="Start"
-        app:layout_constraintTop_toBottomOf="@id/etSeconds"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="10dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberPickerMinutes" />
 
     <NumberPicker
         android:id="@+id/numberPickerMinutes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="70dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMin" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <NumberPicker
+        android:id="@+id/numberPickerSeconds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="70dp"
+        app:layout_constraintBottom_toBottomOf="@+id/numberPickerMinutes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/numberPickerMinutes" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

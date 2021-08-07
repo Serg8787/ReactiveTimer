@@ -29,6 +29,15 @@ class MainActivity : AppCompatActivity() {
                 minutes = picker!!.value
             }
         })
+        numberPickerSeconds.minValue = 0
+        numberPickerSeconds.maxValue = 60
+        numberPickerSeconds.setOnValueChangedListener(object : NumberPicker.OnValueChangeListener{
+            override fun onValueChange(picker: NumberPicker?, oldVal: Int, newVal: Int) {
+                tvSec.text = String.format(newVal.toString())
+                Log.d("MyLOG",picker.toString())
+                seconds = picker!!.value
+            }
+        })
 
 
         btStart.setOnClickListener {
