@@ -62,10 +62,10 @@ class MainActivity : AppCompatActivity() {
                         tvSec.text = "0" + (it % 60).toString()
                         tvMin.text = "0" + (it / 60)
                     }
-                    else if ((it/60)>10) {
-                        tvSec.text = (it % 60).toString()
-                        tvMin.text = (it / 60).toString()
-                    }
+//                    else if ((it/60)<60) {
+//                        tvSec.text = (it % 60).toString()
+//                        tvMin.text = (it / 60).toString()
+//                    }
                     else {
                         tvSec.text = (it % 60).toString()
                         tvMin.text = "0"+(it / 60).toString()
