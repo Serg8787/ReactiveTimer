@@ -20,52 +20,57 @@ class MainActivity : AppCompatActivity() {
 
         numberPickerMinutes.minValue = 0
         numberPickerMinutes.maxValue = 60
-        numberPickerMinutes.setOnValueChangedListener(object : NumberPicker.OnValueChangeListener{
+        numberPickerMinutes.setOnValueChangedListener(object : NumberPicker.OnValueChangeListener {
             override fun onValueChange(picker: NumberPicker?, oldVal: Int, newVal: Int) {
-                if(picker!!.value<10){
-                    tvSec.text = "0${picker.value}"
+                if (picker!!.value < 10) {
+                    tvMin.text = "0${picker.value}"
                 } else {
-                    tvSec.text = picker.value.toString()
+                    tvMin.text = picker.value.toString()
                 }
-               tvMin.text = String.format(newVal.toString())
-                Log.d("MyLOG",picker.toString())
+//               tvMin.text = String.format(newVal.toString())
+                Log.d("MyLOG", picker.toString())
                 minutes = picker!!.value
             }
         })
         numberPickerSeconds.minValue = 0
         numberPickerSeconds.maxValue = 60
-        numberPickerSeconds.setOnValueChangedListener(object : NumberPicker.OnValueChangeListener{
+        numberPickerSeconds.setOnValueChangedListener(object : NumberPicker.OnValueChangeListener {
             override fun onValueChange(picker: NumberPicker?, oldVal: Int, newVal: Int) {
-                if(picker!!.value < 10){
-//                    tvSec.text = "0"+picker.value
+                if (picker!!.value < 10) {//
                     tvSec.text = "0${picker.value}"
                 } else {
                     tvSec.text = picker.value.toString()
                 }
+//                tvSec.text = String.format(newVal.toString())
 
-                Log.d("MyLOG",picker.toString())
+                Log.d("MyLOG", picker.toString())
                 seconds = picker.value
             }
         })
 
 
         btStart.setOnClickListener {
-            numberPickerSeconds.value =0
-            numberPickerMinutes.value =0
+            numberPickerSeconds.value = 0
+            numberPickerMinutes.value = 0
             btStart.isEnabled = false
+            numberPickerMinutes.isEnabled = false
+            numberPickerSeconds.isEnabled = false
 
             val dispose = getSeconds().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe() {
-                    tvSec.text = (it % 60).toString()
-                    val sec = it / 60
-                    tvMin.text = sec.toString()
-                    if(tvSec.text.equals("0")){
-                        btStart.isEnabled = true
+
+                    if ((it % 60) < 10) {
+                        tvSec.text = "0" + (it % 60).toString()
+                        tvMin.text = "0" + (it / 60)
+                    } else {
+                        tvSec.text = (it % 60).toString()
+                        tvMin.text = (it / 60).toString()
                     }
-
-
-
-
+                    if (tvSec.text.equals("00")) {
+                        btStart.isEnabled = true
+                        numberPickerMinutes.isEnabled = true
+                        numberPickerSeconds.isEnabled = true
+                    }
                 }.isDisposed
         }
     }
@@ -76,7 +81,6 @@ class MainActivity : AppCompatActivity() {
             for (i in count downTo 0) {
                 SystemClock.sleep(1000)
                 subcrumber.onNext(i)
-
             }
             subcrumber.onComplete()
 
