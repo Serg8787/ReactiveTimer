@@ -61,13 +61,19 @@ class MainActivity : AppCompatActivity() {
                     if ((it % 60) < 10) {
                         tvSec.text = "0" + (it % 60).toString()
                         tvMin.text = "0" + (it / 60)
-                    } else {
+                    }
+                    else if ((it/60)>10) {
+                        tvSec.text = (it % 60).toString()
+                        tvMin.text = (it / 60).toString()
+                    }
+                    else {
                         tvSec.text = (it % 60).toString()
                         tvMin.text = "0"+(it / 60).toString()
+
                     }
 
 
-                    if (tvSec.text.equals("00")) {
+                    if (tvSec.text.equals("00") && tvMin.text.equals("00")) {
                         btStart.isEnabled = true
                         numberPickerMinutes.isEnabled = true
                         numberPickerSeconds.isEnabled = true
