@@ -39,6 +39,9 @@ class MainActivity : AppCompatActivity() {
 
 
         btStart.setOnClickListener {
+            numberPickerSeconds.value =0
+            numberPickerMinutes.value =0
+            btStart.isEnabled = false
 
             val dispose = getSeconds().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe() {
