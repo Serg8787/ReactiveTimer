@@ -2,8 +2,6 @@ package com.example.reactivetimer
 
 import android.os.Bundle
 import android.os.SystemClock
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.widget.NumberPicker
 import androidx.appcompat.app.AppCompatActivity
@@ -44,8 +42,8 @@ class MainActivity : AppCompatActivity() {
 
             val dispose = getSeconds().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe() {
-                    val min = it / 60
-                    tvMin.text = min.toString()
+                    val sec = it / 60
+                    tvMin.text = sec.toString()
                     tvSec.text = (it % 60).toString()
                 }
         }
@@ -53,7 +51,8 @@ class MainActivity : AppCompatActivity() {
 
     fun getSeconds(): Observable<Int> {
         return ObservableCreate { subcrumber ->
-            for (i in minutes downTo 0) {
+            val count = minutes * 60 + seconds
+            for (i in count downTo 0) {
                 SystemClock.sleep(1000)
                 subcrumber.onNext(i)
             }
