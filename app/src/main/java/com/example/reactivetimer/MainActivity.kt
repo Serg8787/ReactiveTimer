@@ -45,9 +45,10 @@ class MainActivity : AppCompatActivity() {
 
             val dispose = getSeconds().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe() {
+                    tvSec.text = (it % 60).toString()
                     val sec = it / 60
                     tvMin.text = sec.toString()
-                    tvSec.text = (it % 60).toString()
+
                 }
         }
     }
