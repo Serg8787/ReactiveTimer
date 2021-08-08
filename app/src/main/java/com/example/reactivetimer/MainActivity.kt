@@ -58,26 +58,34 @@ class MainActivity : AppCompatActivity() {
 
             val dispose = getSeconds().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe() {
-                    if ((it % 60) < 10) {
-                        tvSec.text = "0" + (it % 60).toString()
-                        tvMin.text = "0" + (it / 60)
+                    val min = it / 60
+                    val sec = it % 60
+                    Log.i("MyLog",min.toString())
+
+                    if (min < 10) {
+                        tvMin.text = "0" + min
+                        if(sec<10){
+                            tvSec.text = "0" + sec
+                            } else {
+                                tvSec.text =""+ sec
+                            }
                     }
-//                    else if ((it/60)<60) {
+//                    else if (min>=10) {
 //                        tvSec.text = (it % 60).toString()
 //                        tvMin.text = (it / 60).toString()
 //                    }
-                    else {
-                        tvSec.text = (it % 60).toString()
-                        tvMin.text = "0"+(it / 60).toString()
-
-                    }
-
-
-                    if (tvSec.text.equals("00") && tvMin.text.equals("00")) {
-                        btStart.isEnabled = true
-                        numberPickerMinutes.isEnabled = true
-                        numberPickerSeconds.isEnabled = true
-                    }
+//                    else {
+//                        tvSec.text = (it % 60).toString()
+//                        tvMin.text = (it / 60).toString()
+//
+//                    }
+//
+//
+//                    if (tvSec.text.equals("00") && tvMin.text.equals("00")) {
+//                        btStart.isEnabled = true
+//                        numberPickerMinutes.isEnabled = true
+//                        numberPickerSeconds.isEnabled = true
+//                    }
                 }.isDisposed
         }
     }
