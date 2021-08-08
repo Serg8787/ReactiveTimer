@@ -1,10 +1,10 @@
 package com.example.reactivetimer
 
-import android.media.AudioAttributes
+import android.content.Context
 import android.media.MediaPlayer
-import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.SystemClock
+import android.os.Vibrator
 import android.provider.Settings
 import android.util.Log
 import android.widget.NumberPicker
@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     tvMin.text = picker.value.toString()
                 }
-//               tvMin.text = String.format(newVal.toString())
                 Log.d("MyLOG", picker.toString())
                 minutes = picker!!.value
             }
@@ -67,18 +66,17 @@ class MainActivity : AppCompatActivity() {
                     val sec = it % 60
                     if (min < 10) {
                         tvMin.text = "0" + min
-                        if(sec<10){
-                            tvSec.text = "0" + sec
-                            } else {
-                                tvSec.text =""+ sec
-                            }
-                    } else
-                    {
-                        tvMin.text =""+ min
-                        if(sec<10){
+                        if (sec < 10) {
                             tvSec.text = "0" + sec
                         } else {
-                            tvSec.text =""+ sec
+                            tvSec.text = "" + sec
+                        }
+                    } else {
+                        tvMin.text = "" + min
+                        if (sec < 10) {
+                            tvSec.text = "0" + sec
+                        } else {
+                            tvSec.text = "" + sec
                         }
                     }
                     if (tvSec.text.equals("00") && tvMin.text.equals("00")) {
@@ -86,8 +84,8 @@ class MainActivity : AppCompatActivity() {
                         btStart.text = "Start"
                         numberPickerMinutes.isEnabled = true
                         numberPickerSeconds.isEnabled = true
-                        val mp = MediaPlayer.create(this,  Settings.System.DEFAULT_NOTIFICATION_URI);
-                        mp.start();
+                        getMusic()
+                        getVibro()
 
                     }
                 }
@@ -101,9 +99,16 @@ class MainActivity : AppCompatActivity() {
                 SystemClock.sleep(1000)
                 subcrumber.onNext(i)
             }
-
-
         }
     }
-
+    fun getMusic(){
+        val mp = MediaPlayer.create(this, Settings.System.DEFAULT_NOTIFICATION_URI);
+        mp.start();
+    }
+    fun getVibro(){
+        val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        val milliseconds = 1000L
+        val canVibrate: Boolean = vibrator.hasVibrator()
+        vibrator.vibrate(milliseconds)
+    }
 }
