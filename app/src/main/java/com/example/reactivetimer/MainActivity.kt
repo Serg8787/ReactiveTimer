@@ -1,7 +1,11 @@
 package com.example.reactivetimer
 
+import android.media.AudioAttributes
+import android.media.MediaPlayer
+import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.SystemClock
+import android.provider.Settings
 import android.util.Log
 import android.widget.NumberPicker
 import androidx.appcompat.app.AppCompatActivity
@@ -53,6 +57,7 @@ class MainActivity : AppCompatActivity() {
             numberPickerSeconds.value = 0
             numberPickerMinutes.value = 0
             btStart.isEnabled = false
+            btStart.text = ""
             numberPickerMinutes.isEnabled = false
             numberPickerSeconds.isEnabled = false
 
@@ -76,14 +81,16 @@ class MainActivity : AppCompatActivity() {
                             tvSec.text =""+ sec
                         }
                     }
-//
-//
-//                    if (tvSec.text.equals("00") && tvMin.text.equals("00")) {
-//                        btStart.isEnabled = true
-//                        numberPickerMinutes.isEnabled = true
-//                        numberPickerSeconds.isEnabled = true
-//                    }
-                }.isDisposed
+                    if (tvSec.text.equals("00") && tvMin.text.equals("00")) {
+                        btStart.isEnabled = true
+                        btStart.text = "Start"
+                        numberPickerMinutes.isEnabled = true
+                        numberPickerSeconds.isEnabled = true
+                        val mp = MediaPlayer.create(this,  Settings.System.DEFAULT_NOTIFICATION_URI);
+                        mp.start();
+
+                    }
+                }
         }
     }
 
@@ -94,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                 SystemClock.sleep(1000)
                 subcrumber.onNext(i)
             }
-            subcrumber.onComplete()
+
 
         }
     }
